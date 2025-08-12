@@ -7,3 +7,12 @@
 * lookup("John") -> "john@john.jhon.com"
 * lookup("john@john.jhon.com") -> "John"
 */
+
+const lookup = (key) => {
+    const userMap = new Map();
+    userMap.set(1, 'John');
+    
+    return userMap.get(key);
+};
+
+console.log(lookup(1));
