@@ -5,7 +5,12 @@
 */
 
 const revert = (word) => {
-  return [...word].reverse().join('');
+  let reverted = '';
+  
+  for(let i=word.length; i>0; i--){
+    reverted += word[i-1];
+  };
+  return reverted;
 };
 
 console.log(revert('Hello'));
