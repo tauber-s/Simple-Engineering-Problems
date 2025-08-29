@@ -16,15 +16,16 @@
  * pattern_matcher("Usa") -> "English"
 */
 
+const countries = new Map([
+  ["Usa", "English"],
+  ["Brazil", "Portuguese"],
+  ["Spain", "Spanish"],
+  ["Italy", "Italian"],
+  ["France", "French"],
+  ["Germany", "German"],
+]);
+
 const pattern_matcher = (country) => {
-  const countries = new Map([
-    ["Usa", "English"],
-    ["Brazil", "Portuguese"],
-    ["Spain", "Spanish"],
-    ["Italy", "Italian"],
-    ["France", "French"],
-    ["Germany", "German"],
-  ]);
   return countries.get(country);
 };
 

@@ -1,14 +1,13 @@
 const user = [{id: 1, name: 'John', email: 'john@john.john.com'}];
+const lookupDict = {};
+
+user.forEach(u => {
+  lookupDict[`id:${u.id}`] = u.name;
+  lookupDict[`name:${u.name}`] = u.email;
+  lookupDict[`email:${u.email}`] = u.name;
+});
 
 const lookup = (query) => {
-  const lookupDict = {};
-
-  user.forEach(u => {
-    lookupDict[`id:${u.id}`] = u.name;
-    lookupDict[`name:${u.name}`] = u.email;
-    lookupDict[`email:${u.email}`] = u.name;
-  });
-
   if (typeof query === "number") return lookupDict[`id:${query}`] || null;
   if (query.includes("@")) return lookupDict[`email:${query}`] || null;
   return lookupDict[`name:${query}`];

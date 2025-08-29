@@ -16,12 +16,17 @@
  * pattern_matcher("Usa") -> "English"
 */
 
-const countries = ["Usa", "Brazil", "Spain", "Italy", "France", "Germany"];
-const languages = ["English", "Portuguese", "Spanish", "Italian", "French", "German"];
+const countries = [
+  ["Usa", "English"],
+  ["Brazil", "Portuguese"],
+  ["Spain", "Spanish"],
+  ["Italy", "Italian"],
+  ["France", "French"],
+  ["Germany", "German"],
+];
 
 const pattern_matcher = (country) => {
-  const index = countries.indexOf(country);
-  return languages[index];
+  return countries.find(([c]) => c === country)[1];
 };
 
 console.log(pattern_matcher("Usa"));
