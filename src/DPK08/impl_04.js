@@ -1,10 +1,11 @@
 const mapfn = (numList, func) => {
   const res = [];
   let i = 0;
-  while (i < numList.length) {
+  do {
     res[i] = func(numList[i]);
     i++;
-  };
+  } while (i < numList.length);
+  
   return res;
 };
 

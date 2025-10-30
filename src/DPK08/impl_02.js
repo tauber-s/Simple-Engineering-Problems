@@ -1,8 +1,8 @@
 const mapfn = (numList, func) => {
   const res = [];
-  for (let i = 0; i < numList.length; i++) {
-    res[i] = func(numList[i]);
-  }
+  numList.forEach((value, idx) => {
+	res[idx] = func(value);
+  });
   return res;
 };
 
