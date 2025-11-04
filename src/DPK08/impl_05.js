@@ -1,6 +1,6 @@
 const mapfn = (numList, func, i = 0, acc = []) => {
   if (i >= numList.length) return acc;
-  acc[i] = func(numList[i], i, numList);
+  acc[i] = func(numList[i]);
   return mapfn(numList, func, i + 1, acc);
 };
 
