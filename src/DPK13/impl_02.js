@@ -12,11 +12,13 @@ const fizzbuzz = (size) => {
   // [...Array(100)].forEach((_, idx) => { // for pre-defined size
   [...Array(size)].forEach((_, idx) => {
     let item = idx+1;
-    if (item % 3 == 0) result.push("Fizz");
+    if (item % 15 === 0) result.push("FizzBuzz");
+    else if (item % 3 == 0) result.push("Fizz");
     else if (item % 5 == 0) result.push("Buzz");
     else result.push(item);
   })
   return result;
 };
+
 
 console.log(fizzbuzz(10));
