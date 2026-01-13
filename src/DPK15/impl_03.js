@@ -2,64 +2,128 @@ class Person {
   constructor(name, age) {
     this.name = name;
     this.age = age;
-  }
+    this.friendsList = new FriendsList();
+  };
+
+  addFriend(name, age) {
+    return this.friendsList.add(new Friend(name, age));
+  };
+
+  removeFriend(name) {
+    return this.friendsList.remove(name);
+  };
 
   getFriends() {
-    return this.friends;
-  }
+    return this.friendsList.getAll();
+  };
 
-  getAge() {
-    return this.age;
-  }
+  getFriendsCount() {
+    return this.friendsList.count();
+  };
+
+  getOldestFriend() {
+    return this.friendsList.getOldestFriend();
+  };
 
   getName() {
     return this.name;
-  }
-}
+  };
+
+  getAge() {
+    return this.age;
+  };
+};
 
 class Friend {
-  constructor(person) {
-    this.person = person;
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  };
+};
+
+class FriendsList {
+  constructor() {
     this.friends = [];
-  }
+  };
 
-  addFriend(friend) {
-    if(!this.friends.includes(friend))
-      this.friends.push(friend);
-  }
+  add(friend) {
+    const alreadyExists = this.friends.some(
+      f => f.name === friend.name
+    );
 
-  getFriends() {
+    if (alreadyExists) {
+      return false;
+    };
+
+    this.friends.push(friend);
+    return true;
+  };
+
+  remove(friendName) {
+    const initialLength = this.friends.length;
+    this.friends = this.friends.filter(
+      f => f.name !== friendName
+    );
+    return this.friends.length !== initialLength;
+  };
+
+  getAll() {
     return this.friends;
-  }
+  };
 
-  removeFriend(friend) {
-    if(this.friends.includes(friend))
-      this.friends.splice(this.friends.indexOf(friend), 1)
-  }
-  
-  moreFriends(people) {
-      const totalFriends = people[0].friends.lenght();
-      // for loop people to verify if lenght friends is more than totalFriends
-  }
-}
+  count() {
+    return this.friends.length;
+  };
 
-const person = new Person("John", 30);
-const friend = new Friend(person);
-friend.addFriend("Paul");
-friend.addFriend("George");
-friend.addFriend("Ringo");
+  getOldestFriend() {
+    if (this.friends.length === 0) return null;
 
-const person2 = new Person("Johnie", 31);
-const friend2 = new Friend(person2);
-friend2.addFriend("Paul");
-friend2.addFriend("George");
+    return this.friends.reduce((oldest, current) =>
+      current.age > oldest.age ? current : oldest
+    );
+  };
+};
 
-// console.log(person);
-// console.log(friend.getFriends());
-// console.log(person.getAge());
-// console.log(person.getName());
-console.log(friend);
-console.log(friend2);
-// friend.removeFriend("George");
+class People {
+  static withMoreFriends(people) {
+    return people.reduce((max, current) =>
+      current.getFriendsCount() > max.getFriendsCount() ? current : max
+    );
+  };
 
-// console.log(friend.getFriends());
+  static withLessFriends(people) {
+    return people.reduce((min, current) =>
+      current.getFriendsCount() < min.getFriendsCount() ? current : min
+    );
+  };
+
+  static withOldestFriend(people) {
+    let result = null;
+    let oldestFriendAge = 0;
+
+    for (const person of people) {
+      const oldestFriend = person.getOldestFriend();
+      if (oldestFriend && oldestFriend.age > oldestFriendAge) {
+        oldestFriendAge = oldestFriend.age;
+        result = person;
+      };
+    };
+
+    return result;
+  };
+};
+
+const p1 = new Person("John", 30);
+p1.addFriend("Paul", 35);
+p1.addFriend("George", 40);
+
+const p2 = new Person("Mary", 28);
+p2.addFriend("Anna", 50);
+
+const p3 = new Person("Bob", 40);
+
+const people = [p1, p2, p3];
+
+console.log(People.withMoreFriends(people).getName());
+console.log(People.withLessFriends(people).getName());
+console.log(People.withOldestFriend(people).getName());
