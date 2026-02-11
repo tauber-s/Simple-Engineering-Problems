@@ -21,5 +21,5 @@
 
 import { Game } from "./Game.js";
 
-const game = new Game();
+const game = new Game(100);
 game.start();
