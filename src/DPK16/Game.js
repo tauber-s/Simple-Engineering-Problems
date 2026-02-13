@@ -25,9 +25,8 @@ export class Game {
       Math.abs(m.y - mosquito.y) <= 1
     );
 
-    if (nearby)
+    if (nearby && !this.isPositionOccupied(mosquito.x, mosquito.y))
       this.mosquitos.push(new Mosquito(mosquito.x, mosquito.y));
-
   };
 
   moves() {
@@ -56,6 +55,10 @@ export class Game {
     return this.mosquitos.filter(m => m.alive).length;
   };
 
+  isPositionOccupied(x, y) {
+    return this.mosquitos.some(m => m.x === x && m.y === y);
+  }
+
   printMatrix() {
     const matrix = Array.from({ length: this.matrixSize }, () => Array(this.matrixSize).fill("."));
     const { x, y } = this.exterminator;
@@ -63,6 +66,8 @@ export class Game {
     for (const mosquito of this.mosquitos) {
       if (mosquito.alive)
         matrix[mosquito.x][mosquito.y] = "M";
+      else
+        matrix[mosquito.x][mosquito.y] = "X";
     };
 
     if (matrix[x][y] === "M")
